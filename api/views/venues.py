@@ -14,7 +14,7 @@ def get_venues():
     """
     Retrieves the list of all Venue objects
     """
-    venues = [venue.to_dict() for venue in storage.all(Venue).values()]  # Convert all Venues to list of dictionaries
+    venues = [venue.to_dict() for venue in storage.all().values()]  # Convert all Venues to list of dictionaries
     return jsonify(venues)  # Return JSON response
 
 @app_views.route('/venues/<venue_id>', methods=['GET'], strict_slashes=False)

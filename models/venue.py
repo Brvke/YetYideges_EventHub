@@ -5,7 +5,7 @@ import models
 from models.base_model import BaseModel
 from models.amenity import Amenity
 from models.review import Review
-
+from models.location import Location
 class Venue(BaseModel):
     """Representation of a venue/place for Event Hub Rentals."""
     user_id = ""
