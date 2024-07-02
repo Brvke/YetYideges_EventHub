@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="../static/styles/body.css">
     <link rel="stylesheet" href="../static/styles/featurevenue.css">
     <link rel="stylesheet" href="../static/styles/footer.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="/static/scripts/search_venue.js?{{ cache_id }}"></script>
+    <script src="/static/scripts/featured_venue.js?{{ cache_id }}"></script>
 </head>
 <body>
     <!-- Header Section -->
@@ -18,10 +21,10 @@
         </div>
         <nav>
             <ul>
-                <li><a href="..static/temp/index.html">Home</a></li>
+                <li><a href="about.html">Home</a></li>
                 <li><a href="venues.html">Venues</a></li>
-                <li><a href="..static/temp/about.html">About Us</a></li>
-                <li><a href="..static/temp/contact.html">Contact</a></li>
+                <li><a href="html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -47,64 +50,8 @@
     <!-- Featured Venues Section -->
     <section class="featured-venues">
         <h2>Featured Venues</h2>
-        <div class="venues">
-            <!-- Repeat this block for each featured venue -->
-            <div class="venue">
-                <img src="../static/img/venueimg/concert.jpg" alt="Venue Image">
-                <h3>Venue Name</h3>
-                <p>Brief description of the venue.</p>
-                <p>Price Range</p>
-            </div>
-            <div class="venue">
-                <img src="../static/img/venueimg/meeting.jpg" alt="Venue Image">
-                <h3>Venue Name</h3>
-                <p>Brief description of the venue.</p>
-                <p>Price Range</p>
-            </div>
-            <div class="venue">
-                <img src="img/venueimg/meeting2.jpg" alt="Venue Image">
-                <h3>Venue Name</h3>
-                <p>Brief description of the venue.</p>
-                <p>Price Range</p>
-            </div>
-            <div class="venue">
-                <img src="img/venueimg/parties.jpg" alt="Venue Image">
-                <h3>Venue Name</h3>
-                <p>Brief description of the venue.</p>
-                <p>Price Range</p>
-            </div>
-            <div class="venue">
-                <img src="img/venueimg/weeding.jpg" alt="Venue Image">
-                <h3>Venue Name</h3>
-                <p>Brief description of the venue.</p>
-                <p>Price Range</p>
-            </div>
-            <div class="venue">
-                <img src="img/venueimg/gettogether.jpg" alt="Venue Image">
-                <h3>Venue Name</h3>
-                <p>Brief description of the venue.</p>
-                <p>Price Range</p>
-            </div>
-            <!-- Add more venues as needed -->
-        </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section class="how-it-works">
-        <h2>How It Works</h2>
-        <div class="steps">
-            <div class="step">
-                <h3>Step 1: Search</h3>
-                <p>Find venues by location, date, and event type.</p>
-            </div>
-            <div class="step">
-                <h3>Step 2: Select</h3>
-                <p>Compare venues and choose the perfect one.</p>
-            </div>
-            <div class="step">
-                <h3>Step 3: Book</h3>
-                <p>Secure your venue by booking online.</p>
-            </div>
+        <div class="venues" id="featured-venues-container">
+            <!-- JavaScript will populate this dynamically -->
         </div>
     </section>
 

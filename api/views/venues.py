@@ -7,6 +7,7 @@ from models import storage  # Import storage engine
 from api.views import app_views  # Import the Blueprint from app_views
 from flask import abort, jsonify, make_response, request  # Flask imports
 from flasgger.utils import swag_from  # For API documentation with Swagger
+from flask import render_template  # For rendering HTML templates
 
 @app_views.route('/venues', methods=['GET'], strict_slashes=False)
 @swag_from('documentation/venue/get_venues.yml', methods=['GET'])
@@ -14,8 +15,10 @@ def get_venues():
     """
     Retrieves the list of all Venue objects
     """
-    venues = [venue.to_dict() for venue in storage.all().values()]  # Convert all Venues to list of dictionaries
-    return jsonify(venues)  # Return JSON response
+    venues = [venue.to_dict() for venue in Venue.load('venues.json')
+              ]  # Convert all Venues to list of dictionaries
+    # Return a renderd template
+    return render_template('venues.html', venues=venues)
 
 @app_views.route('/venues/<venue_id>', methods=['GET'], strict_slashes=False)
 @swag_from('documentation/venue/get_venue.yml', methods=['GET'])
@@ -132,3 +135,16 @@ def venues_search():
         venue.pop('amenities', None)  # Remove amenities for simplicity
 
     return jsonify(result)
+
+@app_views.route('/featured-venues', methods=['GET'])
+def get_featured_venues():
+    """
+    Retrieves the list of featured Venue objects with specific fields
+    """
+    with open('venues.json', 'r') as f:
+        venues = json.load(f)
+    
+    featured_venues = [venue for venue in venues if venue['is_featured']]
+    return featured_venues
+
+    

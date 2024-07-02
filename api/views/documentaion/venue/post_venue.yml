@@ -1,0 +1,48 @@
+swagger: "2.0"
+info:
+  title: "Create Venue API"
+  description: "Endpoint to create a new venue."
+  version: "1.0.0"
+paths:
+  /api/venues:
+    post:
+      summary: "Create a new venue"
+      description: "Creates a new venue."
+      consumes:
+        - "application/json"
+      parameters:
+        - in: body
+          name: body
+          description: "Venue object to be created"
+          required: true
+          schema:
+            $ref: "#/definitions/Venue"
+      responses:
+        201:
+          description: "Venue created successfully"
+          schema:
+            $ref: "#/definitions/Venue"
+        400:
+          description: "Invalid request (e.g., missing required fields)"
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+                description: "Invalid request, missing required fields"
+definitions:
+  Venue:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: "Venue Name"
+      location:
+        type: "string"
+        description: "Location"
+      description:
+        type: "string"
+        description: "Description of the venue"
+      priceRange:
+        type: "string"
+        description: "Moderate"

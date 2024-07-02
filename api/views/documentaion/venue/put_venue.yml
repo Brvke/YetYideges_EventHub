@@ -1,0 +1,59 @@
+swagger: "2.0"
+info:
+  title: "Update Venue API"
+  description: "Endpoint to update a venue by ID."
+  version: "1.0.0"
+paths:
+  /api/venues/{venue_id}:
+    parameters:
+      - name: venue_id
+        in: path
+        required: true
+        type: string
+        description: ID of the venue to update
+    put:
+      summary: "Update a venue by ID"
+      description: "Updates a single venue."
+      consumes:
+        - "application/json"
+      parameters:
+        - in: body
+          name: body
+          description: "Updated venue object"
+          required: true
+          schema:
+            $ref: "#/definitions/Venue"
+      responses:
+        200:
+          description: "Venue updated successfully"
+          schema:
+            $ref: "#/definitions/Venue"
+        400:
+          description: "Invalid request (e.g., missing required fields)"
+          schema:
+            type: "object"
+            properties:
+              message:
+                type: "string"
+                description: "Invalid request, missing required fields"
+        404:
+          description: "Venue not found"
+definitions:
+  Venue:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "1"
+      name:
+        type: "string"
+        description: "Venue Name"
+      location:
+        type: "string"
+        description: "Location"
+      description:
+        type: "string"
+        description: "Description of the venue"
+      priceRange:
+        type: "string"
+        description: "Moderate"

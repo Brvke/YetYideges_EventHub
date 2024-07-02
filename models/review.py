@@ -1,7 +1,6 @@
 #!/usr/bin/python
 """ holds class Review"""
 from models.base_model import BaseModel
-import models
 class Review(BaseModel):
     """Representation of Review."""
     venue_id = ""

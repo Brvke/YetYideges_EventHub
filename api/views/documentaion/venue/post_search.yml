@@ -1,0 +1,56 @@
+swagger: "2.0"
+info:
+  title: "Search Venues API"
+  description: "Endpoint to search venues based on locations and amenities."
+  version: "1.0.0"
+paths:
+  /api/venues_search:
+    post:
+      summary: "Search venues"
+      description: "Retrieves venues based on specified locations and amenities."
+      consumes:
+        - "application/json"
+      parameters:
+        - in: body
+          name: body
+          description: "Search criteria"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              locations:
+                type: "array"
+                items:
+                  type: "string"
+                  description: "Location 1"
+              amenities:
+                type: "array"
+                items:
+                  type: "string"
+                  description: "Amenity 1"
+      responses:
+        200:
+          description: "List of venues matching the search criteria"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Venue"
+definitions:
+  Venue:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "1"
+      name:
+        type: "string"
+        description: "Venue Name"
+      location:
+        type: "string"
+        description: "Location"
+      description:
+        type: "string"
+        description: "Description of the venue"
+      priceRange:
+        type: "string"
+        description: "Moderate"

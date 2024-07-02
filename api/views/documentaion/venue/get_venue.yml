@@ -1,0 +1,42 @@
+swagger: "2.0"
+info:
+  title: "Get Venue by ID API"
+  description: "Endpoint to retrieve a single venue by ID."
+  version: "1.0.0"
+paths:
+  /api/venues/{venue_id}:
+    parameters:
+      - name: venue_id
+        in: path
+        required: true
+        type: string
+        description: ID of the venue to retrieve
+    get:
+      summary: "Get a venue by ID"
+      description: "Returns a single venue."
+      responses:
+        200:
+          description: "Venue found"
+          schema:
+            $ref: "#/definitions/Venue"
+        404:
+          description: "Venue not found"
+definitions:
+  Venue:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        decription: "1"
+      name:
+        type: "string"
+        decription: "Venue Name"
+      location:
+        type: "string"
+        decription: "Location"
+      description:
+        type: "string"
+        decription: "Description of the venue"
+      priceRange:
+        type: "string"
+        decription: "Moderate"

@@ -1,0 +1,33 @@
+swagger: "2.0"
+info:
+  title: "Get All Venues API"
+  description: "Endpoint to retrieve all venues."
+  version: "1.0.0"
+paths:
+  /api/venues:
+    get:
+      summary: "Get all venues"
+      description: "Returns a list of all venues."
+      responses:
+        200:
+          description: "A list of venues"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                id:
+                  type: "string"
+                  description: "Venue ID"
+                name:
+                  type: "string"
+                  description: "Venue Name"
+                description:
+                  type: "string"
+                  description: "Description of the venue"
+                priceRange:
+                  type: "string"
+                  description: "Moderate"
+                imageUrl:
+                  type: "string"
+                  description: "https://description.com/image.jpg"
