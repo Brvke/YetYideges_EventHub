@@ -9,9 +9,8 @@
     <link rel="stylesheet" href="../static/styles/body.css">
     <link rel="stylesheet" href="../static/styles/featurevenue.css">
     <link rel="stylesheet" href="../static/styles/footer.css">
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="/static/scripts/search_venue.js?{{ cache_id }}"></script>
-    <script src="/static/scripts/featured_venue.js?{{ cache_id }}"></script>
+    <link rel="stylesheet" href="../static/styles/individualvenue.css">
+    <link rel="stylesheet" href="../static/styles/howitwork.css">
 </head>
 <body>
     <!-- Header Section -->
@@ -21,9 +20,9 @@
         </div>
         <nav>
             <ul>
-                <li><a href="about.html">Home</a></li>
+                <li><a href="yet1.html">Home</a></li>
                 <li><a href="venues.html">Venues</a></li>
-                <li><a href="html">About Us</a></li>
+                <li><a href="about.html">About Us</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
@@ -49,12 +48,70 @@
 
     <!-- Featured Venues Section -->
     <section class="featured-venues">
-        <h2>Featured Venues</h2>
-        <div class="venues" id="featured-venues-container">
-            <!-- JavaScript will populate this dynamically -->
+        <div class="section-header">
+            <h2>Featured Venues</h2>
+            <p>Explore our top-rated event spaces</p>
+        </div>
+        <div class="venue-content">
+            {% for venue in venues[:6] %}
+            <div class="single-featured-venue">
+                <a href="{{ url_for('app_views.get_venue', venue_id=venue.id) }}">
+                    <img src="{{ venue.img }}" alt="Venue Image">
+                    <h3>{{ venue.name }}</h3>
+                    <p>{{ venue.description }}</p>
+                    <p>{{ venue.price_by_night }}</p>
+                </a>
+            </div>
+            {% endfor %}
         </div>
     </section>
 
+    <!-- How it Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>Learn More about how our website works</p>
+            </div><!-- /.section-header -->
+            <div class="works-content">
+                <div class="row">
+                    <!-- Step 1: Choose what to do -->
+                    <div class="single-how-works">
+                        <div class="single-how-works-icon">
+                            <i class="flaticon-lightbulb-idea"></i>
+                        </div>
+                        <h2><a href="#">Choose <span> what to</span> do</a></h2>
+                        <p>
+                            Whether you're organizing a corporate conference, a wedding, or a private party, our platform allows you to select the type of event you're planning. This helps us tailor our recommendations and suggestions to your specific needs.
+                        </p>
+                        <button class="welcome-hero-btn how-work-btn" onclick="window.location.href='#'">Read More</button>
+                    </div><!-- /.single-how-works -->
+                    <!-- Step 2: Find what you want -->
+                    <div class="single-how-works">
+                        <div class="single-how-works-icon">
+                            <i class="flaticon-networking"></i>
+                        </div>
+                        <h2><a href="#">Find <span> what you want</span></a></h2>
+                        <p>
+                            Once you've chosen the event type, our powerful search and filtering tools help you discover the perfect venue for your occasion. You can browse through our curated selection of event spaces, compare prices, and read reviews to find the ideal location.
+                        </p>
+                        <button class="welcome-hero-btn how-work-btn" onclick="window.location.href='#'">Read More</button>
+                    </div><!-- /.single-how-works -->
+                    <!-- Step 3: Explore amazing places -->
+                    <div class="single-how-works">
+                        <div class="single-how-works-icon">
+                            <i class="flaticon-location-on-road"></i>
+                        </div>
+                        <h2><a href="#">Explore <span> amazing</span> places</a></h2>
+                        <p>
+                            Our event hub features a diverse range of venues, from historic banquet halls to modern conference centers. Each venue listing includes detailed information, high-quality photos, and the ability to check availability and request quotes directly through the platform.
+                        </p>
+                        <button class="welcome-hero-btn how-work-btn" onclick="window.location.href='#'">Read More</button>
+                    </div><!-- /.single-how-works -->
+                </div><!-- /.col -->
+            </div><!-- /.works-content -->
+        </div><!-- /.container -->
+    </section>
     <!-- Success Story Section -->
     <section class="testimonials">
         <h2>What Our Clients Say</h2>

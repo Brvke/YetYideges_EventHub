@@ -26,68 +26,20 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Find Your Perfect Event Venue</h1>
-        <form class="search-bar">
-            <input type="text" placeholder="Location">
-            <input type="date">
-            <select>
-                <option value="all">All Event Types</option>
-                <option value="wedding">Wedding</option>
-                <option value="conference">Conference</option>
-                <option value="concert">Concert</option>
-                <option value="birthday">birthday</option>
-                <!-- Add more event types as needed -->
-            </select>
-            <button type="submit">Search</button>
-        </form>
-    </section>
-
-    <!-- Featured Venues Section -->
-    <section class="venues">
-        <h1>Venues</h1>
-        <div class="venues">
-            <!-- Repeat this block for each featured venue -->
-            <div class="venue">
-                <img src="img/venueimg/concert.jpg" alt="Venue Image">
-                <h3>Venue Name</h3>
-                <p>Brief description of the venue.</p>
-                <p>Price Range</p>
+    <body>
+        <h1>Welcome to our Venues</h1>
+        <div class="venue-grid">
+            {% for i in range(6) %}
+            <div class="venue-box">
+                <img src="{{ venues[i].img }}" alt="{{ venues[i].name }} image">
+                <h2>{{ venues[i].name }}</h2>
+                <p>{{ venues[i].description[:100] }}...</p>
+                <a href="{{ url_for('get_venue', venue_id=venues[i].id) }}" class="btn">Learn More</a>
             </div>
-            <div class="venue">
-                <img src="img/venueimg/meeting.jpg" alt="Venue Image">
-                <h3>Venue Name</h3>
-                <p>Brief description of the venue.</p>
-                <p>Price Range</p>
-            </div>
-            <div class="venue">
-                <img src="img/venueimg/meeting2.jpg" alt="Venue Image">
-                <h3>Venue Name</h3>
-                <p>Brief description of the venue.</p>
-                <p>Price Range</p>
-            </div>
-            <div class="venue">
-                <img src="img/venueimg/parties.jpg" alt="Venue Image">
-                <h3>Venue Name</h3>
-                <p>Brief description of the venue.</p>
-                <p>Price Range</p>
-            </div>
-            <div class="venue">
-                <img src="img/venueimg/weeding.jpg" alt="Venue Image">
-                <h3>Venue Name</h3>
-                <p>Brief description of the venue.</p>
-                <p>Price Range</p>
-            </div>
-            <div class="venue">
-                <img src="img/venueimg/gettogether.jpg" alt="Venue Image">
-                <h3>Venue Name</h3>
-                <p>Brief description of the venue.</p>
-                <p>Price Range</p>
-            </div>
-            <!-- Add more venues as needed -->
+            {% endfor %}
         </div>
-    </section>
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    </body>
 
     
 

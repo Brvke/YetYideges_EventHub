@@ -1,0 +1,37 @@
+<section id="venue" class="venue">
+    <div class="container">
+        <div class="section-header">
+            <h2>Venue</h2>
+            <p>Explore different venues for your events and gatherings</p>
+        </div>
+
+        <div class="venue-content">
+            <div class="row">
+                {% for venue in venues %}
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-venue-item">
+                        <div class="single-venue-img">
+                            <img src="{{ venue.image }}" alt="venue image">
+                            <div class="single-venue-img-info">
+                                <!-- Venue Image Info -->
+                            </div>
+                        </div>
+                        <div class="single-venue-txt bg-theme-1">
+                            <h2><a href="#">{{ venue.name }}</a></h2>
+                            <p class="venue-rating-price">
+                                <!-- Venue Rating and Price -->
+                            </p>
+                            <div class="venue-description">
+                                <!-- Venue Description -->
+                            </div>
+                            <div class="venue-availability">
+                                <!-- Venue Availability -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
