@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload the entire 'api' directory
-          path: api
+          path: api/templates
 
       - name: Deploy to GitHub Pages
         id: deployment
