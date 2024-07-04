@@ -1,5 +1,5 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+# Simple workflow for deploying a Flask app to GitHub Pages
+name: Deploy Flask App to GitHub Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -31,15 +31,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Upload artifact
+
+      - name: Upload api/templates
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: |
-               api/templates
-               api/static
+          path: api/templates
+
+      - name: Upload api/static
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: api/static
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
