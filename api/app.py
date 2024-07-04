@@ -40,12 +40,20 @@ app.config['SWAGGER'] = {
 def start():
     venues = [venue.to_dict() for venue in Venue.load('venue.json')
               ]  # Convert all Venues to list of dictionaries
-    return render_template('yet1.html')
+    with open('/mnt/c/Users/test/Documents/alx_se_brvke/YetYideges_EventHub/api/venue.json', 'r') as file:
+        venues = json.load(file)
+    return render_template('yet1.html', venues=venues)
 
 @app.route('/about')
 def about():
     return render_template('about.html')
 
+@app.route('/venues')
+def venues():
+    with open('/mnt/c/Users/test/Documents/alx_se_brvke/YetYideges_EventHub/api/venue.json', 'r') as file:
+        venues = json.load(file)
+    return render_template('venues.html', venues=venues)
+    
 Swagger(app)
 
 

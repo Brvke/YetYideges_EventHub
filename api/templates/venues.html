@@ -4,57 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Hub Rental</title>
-    <link rel="stylesheet" href="../styles/header.css"> <!-- Link to external CSS file -->
-    <link rel="stylesheet" href="../styles/hero.css">
-    <link rel="stylesheet" href="../styles/body.css">
-    <link rel="stylesheet" href="../styles/featurevenue.css">
-    <link rel="stylesheet" href="../styles/footer.css">
+    <link rel="stylesheet" href="../static/styles/header.css"> <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="../static/styles/hero.css">
+    <link rel="stylesheet" href="../static/styles/body.css">
+    <link rel="stylesheet" href="../static/styles/featurevenue.css">
+    <link rel="stylesheet" href="../static/styles/footer.css">
+    <link rel="stylesheet" href="../static/styles/individualvenue.css">
+    <link rel="stylesheet" href="../static/styles/howitwork.css">
 </head>
 <body>
     <!-- Header Section -->
     <header>
         <div class="logo">
-            <img src="img/YetYedeges.png" alt="Event Hub Logo"> <!-- Logo image --> 
+            <img src="../static/img/YetYedeges.png" alt="Event Hub Logo"> <!-- Logo image --> 
         </div>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="browse.html">Venues</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/venues">Venues</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <body>
-        <h1>Welcome to our Venues</h1>
-        <div class="venue-grid">
-            <div class="venue-grid-container">
-                <div class="venue-grid">
-                    {% for venue in venues[:15] %}
-                    <div class="venue-box">
-                        <a href="#" onclick="showVenueDetails('{{ venue.id }}')">
-                            <img src="{{ venue.img }}" alt="{{ venue.name }}">
-                            <h3>{{ venue.name }}</h3>
-                        </a>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            
-            <div id="venue-details" class="venue-details-container" style="display: none;">
-                <div class="venue-details-content">
-                    <span class="close-btn" onclick="hideVenueDetails()">&times;</span>
-                    <img id="venue-image" src="" alt="">
-                    <h2 id="venue-name"></h2>
-                    <p id="venue-description"></p>
-                </div>
-            </div>
+    <!-- Featured Venues Section -->
+    <section class="featured-venues">
+        <div class="section-header">
+            <h2>Venues </h2>
+            <p>Explore our top-rated event spaces</p>
         </div>
-        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    </body>
-
-    
+        <div class="venue-content">
+            {% for venue in venues %}
+                <div class="venue">
+                    <a href="{{ url_for('app_views.get_venue', venue_id=venue.id)}}">
+                        <img src="{{ venue.img }}" alt="Venue Image">
+                        <h3>{{ venue.name }}</h3>
+                        <p>{{ venue.description }}</p>
+                        <p>{{ venue.price_by_night }}</p>
+                    </a>
+                </div>
+                {% endfor %}
+        </div>
+    </section>
 
     <!-- Footer Section -->
     <footer>
@@ -64,7 +56,7 @@
         </div>
         <div class="social-media">
             <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
-            <a href="#"><img src="twitter-icon.png" alt="Twitter"></a>
+            <a href="#"><img src="X-icon.png" alt="X"></a>
             <!-- Add more social media links as needed -->
         </div>
         <p>Contact Us: (123) 456-7890 | info@eventhub.com</p>

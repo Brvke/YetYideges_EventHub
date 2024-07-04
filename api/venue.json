@@ -7,7 +7,8 @@
         "description": "party Breif description of the Menu",
         "price_by_night": 110,
         "event_capacity": 10,
-        "img": "api/static/img/venueimg/parties.jpg"
+        "location": "Addis Ababa Tuludimtu",
+        "img": "./static/img/venueimg/parties.jpg"
     },
     {
         "id": "2",
@@ -17,7 +18,8 @@
         "description": "concert Breif description of the Menu",
         "price_by_night": 110,
         "event_capacity": 10,
-        "img": "api/static/img/venueimg/concert.jpg"
+        "location": "Addis Ababa Bole",
+        "img": "./static/img/venueimg/concert.jpg"
     },
     {
         "id": "3",
@@ -27,7 +29,8 @@
         "description": "meeting Breif description of the Menu",
         "price_by_night": 110,
         "event_capacity": 10,
-        "img": "api/static/img/venueimg/meeting.jpg"
+        "location": "Addis Ababa piassa",
+        "img": "./static/img/venueimg/meeting.jpg"
     },
     {
         "id": "4",
@@ -37,7 +40,8 @@
         "description": "meeing Breif description of the Menu",
         "price_by_night": 110,
         "event_capacity": 10,
-        "img": "api/static/img/venueimg/meeting2.jpg"
+        "location": "Addis Ababa gerji",
+        "img": "./static/img/venueimg/meeting2.jpg"
     },
     {
         "id": "5",
@@ -47,7 +51,8 @@
         "description": "weeding Breif description of the Menu",
         "price_by_night": 110,
         "event_capacity": 10,
-        "img": "api/static/img/venueimg/weeding.jpg"
+        "location": "Addis Ababa kera",
+        "img": "./static/img/venueimg/weeding.jpg"
     },
     {
         "id": "6",
@@ -57,6 +62,7 @@
         "description": "gettogether Brief description of the Menu",
         "price_by_night": 110,
         "event_capacity": 10,
-        "img": "api/static/img/venueimg/gettogether.jpg"
+        "location": "Addis Ababa lebu",
+        "img": "./static/img/venueimg/gettogether.jpg"
     }
 ]

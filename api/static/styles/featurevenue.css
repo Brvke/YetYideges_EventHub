@@ -1,71 +1,30 @@
-/* Featured Venues Section Styles */
-.featured-venues {
-    padding: 50px 0;
-    background-color: #f9f9f9;
-}
+/* CSS for grid view and image adjustment in the featured venue section */
 
-.section-header {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.section-header h2 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-}
-
-.section-header p {
-    font-size: 1.1em;
-    color: #777;
-}
-
+/* Grid view for the featured venues */
 .venue-content {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
+    grid-template-columns: repeat(3, 1fr); /* Set 3 columns */
+    grid-gap: var(--venue-gap, 20px);
+    justify-content: space-between; /* Space evenly between boxes */
+    flex-wrap: nowrap; /* No wrapping, keep items in one row */
+    gap: 20px; 
 }
 
-.single-featured-venue {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+/* Adjust the image size in the featured venue section */
+.venue img {
+    width: 100%;
+    height: auto;
+}
+
+/* Use Poppins font for all elements within the .venue-content class */
+.venue-content * {
+    font-family: "Poppins", sans-serif;
+}
+
+/* Styling for the boxes in the featured venue section */
+.venue {
+    background-color: #f2f2f2;
+    border-radius: 10px;
     padding: 20px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.single-featured-venue:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
-}
-
-.single-featured-venue img {
-    max-width: 100%;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-
-.single-featured-venue h3 {
-    font-size: 1.5em;
-    margin-bottom: 15px;
-}
-
-.single-featured-venue p {
-    font-size: 1em;
-    color: #555;
-    margin-bottom: 20px;
-}
-
-.single-featured-venue a {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #ff6600;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.single-featured-venue a:hover {
-    background-color: #e65c00;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
