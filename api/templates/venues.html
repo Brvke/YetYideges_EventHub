@@ -29,14 +29,27 @@
     <body>
         <h1>Welcome to our Venues</h1>
         <div class="venue-grid">
-            {% for i in range(6) %}
-            <div class="venue-box">
-                <img src="{{ venues[i].img }}" alt="{{ venues[i].name }} image">
-                <h2>{{ venues[i].name }}</h2>
-                <p>{{ venues[i].description[:100] }}...</p>
-                <a href="{{ url_for('get_venue', venue_id=venues[i].id) }}" class="btn">Learn More</a>
+            <div class="venue-grid-container">
+                <div class="venue-grid">
+                    {% for venue in venues[:15] %}
+                    <div class="venue-box">
+                        <a href="#" onclick="showVenueDetails('{{ venue.id }}')">
+                            <img src="{{ venue.img }}" alt="{{ venue.name }}">
+                            <h3>{{ venue.name }}</h3>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
-            {% endfor %}
+            
+            <div id="venue-details" class="venue-details-container" style="display: none;">
+                <div class="venue-details-content">
+                    <span class="close-btn" onclick="hideVenueDetails()">&times;</span>
+                    <img id="venue-image" src="" alt="">
+                    <h2 id="venue-name"></h2>
+                    <p id="venue-description"></p>
+                </div>
+            </div>
         </div>
         <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     </body>

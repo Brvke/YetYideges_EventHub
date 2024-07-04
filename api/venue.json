@@ -1,52 +1,62 @@
 [
     {
-        "id": "f1f5198f-506c-49bf-b526-09f3776198df",
+        "id": "1",
         "created_at": "2024-06-27T19:05:40.298381",
         "updated_at": "2024-07-01T10:37:18.597641",
         "user_id": "57321b5c-1e7d-4860-874a-1147e597dbbe",
-        "description": "Breif description of the Menu",
+        "description": "party Breif description of the Menu",
         "price_by_night": 110,
         "event_capacity": 10,
-        "img": ""
+        "img": "api/static/img/venueimg/parties.jpg"
     },
     {
-        "id": "f2f5198f-506c-49bf-b526-09f3776198df",
+        "id": "2",
         "created_at": "2024-06-27T19:05:40.298381",
         "updated_at": "2024-07-01T10:37:18.597641",
         "user_id": "57321b5c-1e7d-4860-874a-1147e597dbbe",
-        "description": "Breif description of the Menu",
+        "description": "concert Breif description of the Menu",
         "price_by_night": 110,
         "event_capacity": 10,
-        "img": "static/img/venueimg/concert"
+        "img": "api/static/img/venueimg/concert.jpg"
     },
     {
-        "id": "f3f5198f-506c-49bf-b526-09f3776198df",
+        "id": "3",
         "created_at": "2024-06-27T19:05:40.298381",
         "updated_at": "2024-07-01T10:37:18.597641",
         "user_id": "57321b5c-1e7d-4860-874a-1147e597dbbe",
-        "description": "Breif description of the Menu",
+        "description": "meeting Breif description of the Menu",
         "price_by_night": 110,
         "event_capacity": 10,
-        "img": ""
+        "img": "api/static/img/venueimg/meeting.jpg"
     },
     {
-        "id": "f4f5198f-506c-49bf-b526-09f3776198df",
+        "id": "4",
         "created_at": "2024-06-27T19:05:40.298381",
         "updated_at": "2024-07-01T10:37:18.597641",
         "user_id": "57321b5c-1e7d-4860-874a-1147e597dbbe",
-        "description": "Breif description of the Menu",
+        "description": "meeing Breif description of the Menu",
         "price_by_night": 110,
         "event_capacity": 10,
-        "img": ""
+        "img": "api/static/img/venueimg/meeting2.jpg"
     },
     {
-        "id": "f5f5198f-506c-49bf-b526-09f3776198df",
+        "id": "5",
         "created_at": "2024-06-27T19:05:40.298381",
         "updated_at": "2024-07-01T10:37:18.597641",
         "user_id": "57321b5c-1e7d-4860-874a-1147e597dbbe",
-        "description": "Breif description of the Menu",
+        "description": "weeding Breif description of the Menu",
         "price_by_night": 110,
         "event_capacity": 10,
-        "img": ""
+        "img": "api/static/img/venueimg/weeding.jpg"
+    },
+    {
+        "id": "6",
+        "created_at": "2024-06-27T19:05:40.298381",
+        "updated_at": "2024-07-01T10:37:18.597641",
+        "user_id": "57321b5c-1e7d-4860-874a-1147e597dbbe",
+        "description": "gettogether Brief description of the Menu",
+        "price_by_night": 110,
+        "event_capacity": 10,
+        "img": "api/static/img/venueimg/gettogether.jpg"
     }
 ]

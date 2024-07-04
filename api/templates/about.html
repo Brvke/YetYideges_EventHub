@@ -1,27 +1,50 @@
 <!DOCTYPE html>
-<html>
-<html lang="en">    
+<html lang="en">
 <head>
-    <title>About</title>
-    <link rel="stylesheet" type="text/css" href="../styles/about.css?{{ cache_id }}">
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="static/scripts/about.js?{{ cache_id }}"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Hub Rental</title>
+    <link rel="stylesheet" href="../static/styles/header.css"> <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="../static/styles/hero.css">
+    <link rel="stylesheet" href="../static/styles/body.css">
+    <link rel="stylesheet" href="../static/styles/featurevenue.css">
+    <link rel="stylesheet" href="../static/styles/footer.css">
+    <link rel="stylesheet" href="../static/styles/individualvenue.css">
+    <link rel="stylesheet" href="../static/styles/howitwork.css">
 </head>
 <body>
+    <!-- Header Section -->
     <header>
-        <h1>About Us</h1>
+        <div class="logo">
+            <img src="../static/img/YetYedeges.png" alt="Event Hub Logo"> <!-- Logo image --> 
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/venues">Venues</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main>
-        <section>
+        <section class="our-story">
             <h2>Our Story</h2>
-            <p>Our company was founded in 2024.</p>
+            <p>Founded in 2024, Yet Yideges has been committed to delivering exceptional service and innovative solutions. Our journey is a testament to our unwavering dedication to excellence and our passion for growth.</p>
         </section>
 
-        <section>
+        <section class="team">
             <h2>Manager</h2>
             <ul>
-                <li>Bruke Taye - CEO</li>
+                <li>
+                    <div class="team-member">
+                        <img src="https://via.placeholder.com/150" alt="Bruke Taye">
+                        <h3>Bruke Taye</h3>
+                        <p>CEO</p>
+                    </div>
+                </li>
+                <!-- Add more team members as needed -->
             </ul>
         </section>
     </main>
@@ -31,3 +54,4 @@
     </footer>
 </body>
 </html>
+<link rel="stylesheet" href="../static/styles/about.css">

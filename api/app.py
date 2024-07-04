@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Flask Application """
 from models import storage
+from models.venue import Venue
 from api.views import app_views
 from os import environ
 from flask import Flask, render_template, make_response, json, jsonify
@@ -37,7 +38,13 @@ app.config['SWAGGER'] = {
 
 @app.route('/', methods=['GET'])
 def start():
+    venues = [venue.to_dict() for venue in Venue.load('venue.json')
+              ]  # Convert all Venues to list of dictionaries
     return render_template('yet1.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 Swagger(app)
 

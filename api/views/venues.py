@@ -5,7 +5,7 @@ from models.user import User
 from models.amenity import Amenity
 from models import storage  # Import storage engine
 from api.views import app_views  # Import the Blueprint from app_views
-from flask import abort, jsonify, make_response, request  # Flask imports
+from flask import abort, jsonify, make_response, request, json  # Flask imports
 from flasgger.utils import swag_from  # For API documentation with Swagger
 from flask import render_template  # For rendering HTML templates
 
@@ -17,8 +17,8 @@ def get_venues():
     """
     venues = [venue.to_dict() for venue in Venue.load('venues.json')
               ]  # Convert all Venues to list of dictionaries
-    # Return a renderd template
-    return render_template('venues.html', venues=venues)
+    # Return a rendered template
+    return render_template('yet1.html', venues=venues)
 
 @app_views.route('/venues/<venue_id>', methods=['GET'], strict_slashes=False)
 @swag_from('documentation/venue/get_venue.yml', methods=['GET'])
@@ -26,11 +26,12 @@ def get_venue(venue_id):
     """
     Retrieves a Venue object by ID
     """
-    venue = storage.get(Venue, venue_id)  # Get the Venue by ID
+    venue = [Venue.get('venues.json', venue_id)]  # Get the Venue by ID
     if not venue:
         abort(404)  # If Venue not found, return 404
 
-    return jsonify(venue.to_dict())  # Return JSON response
+    # Return JSON response
+    return render_template('yet1.html', venues=venue)
 
 @app_views.route('/venues/<venue_id>', methods=['DELETE'], strict_slashes=False)
 @swag_from('documentation/venue/delete_venue.yml', methods=['DELETE'])
@@ -44,7 +45,7 @@ def delete_venue(venue_id):
 
     storage.delete(venue)  # Delete the Venue
     storage.save()  # Save changes to the storage
-    return make_response(jsonify({}), 200)  # Return empty JSON with 200 status
+    return make_response(jsonify({}), 200)  # Return empty JSON response with 200 status
 
 @app_views.route('/venues', methods=['POST'], strict_slashes=False)
 @swag_from('documentation/venue/post_venue.yml', methods=['POST'])

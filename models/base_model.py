@@ -48,16 +48,19 @@ class BaseModel:
         return result
 
     @classmethod
+    def load_all(cls):
+        """Loads all objects of the class from the JSON file."""
+        file_name = f"{cls.__name__.lower()}s.json"
+        data = cls.load_data(file_name)
+        return [cls(**item) for item in data]
+    
+    @classmethod
     def load_data(cls, file_name):
-        """Loads the list of objects from a JSON file with error handling."""
+        """Loads the list of objects from a JSON file."""
         if not os.path.exists(file_name):
             return []
-        try:
-            with open(file_name, 'r') as file:
-                return json.load(file)
-        except (IOError, json.JSONDecodeError) as e:
-            print(f"Error reading from file {file_name}: {e}")
-            return []
+        with open(file_name, 'r') as file:
+            return json.load(file)
 
     @classmethod
     def load(cls, file_name):
@@ -66,13 +69,12 @@ class BaseModel:
         return [cls(**item) for item in data]
 
     @classmethod
-    def find_by_id(cls, file_name, obj_id):
-        """Finds an object by its ID from a JSON file."""
-        data = cls.load_data(file_name)
-        for item in data:
-            if item['id'] == obj_id:
-                return cls(**item)
-        return None
+    def get(cls, file_name, id):
+        """Loads a single object based on id"""
+        datas = cls.load(file_name)
+        for data in datas:
+            if id == data.to_dict()['id']:
+                return data
 
     def delete(self):
         """Deletes the current object from the JSON file."""

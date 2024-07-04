@@ -1,43 +1,64 @@
-/* Reset default styles */
-body, h1, p {
+
+
+/* Our Story Section */
+.our-story {
+    padding: 80px 20px;
+    text-align: center;
+    background-color: #f5f5f5;
+}
+
+.our-story h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.our-story p {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Team Section */
+.team {
+    padding: 80px 20px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.team h2 {
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+.team ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     margin: 0;
     padding: 0;
 }
 
-/* Container for the page */
-.container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 20px;
+.team li {
+    margin: 20px;
+    width: 200px;
 }
 
-/* Heading styles */
-h1 {
-    font-size: 24px;
-    font-weight: bold;
+.team-member img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
     margin-bottom: 20px;
 }
 
-/* Paragraph styles */
-p {
+.team-member h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.team-member p {
     font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 10px;
-}
-
-/* Image styles */
-img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 20px;
-}
-
-/* Link styles */
-a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
+    color: #666;
 }
