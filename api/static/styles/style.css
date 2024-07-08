@@ -1,0 +1,230 @@
+/* Header Styling */
+header {
+    background-color: #2f1d3d;
+    color: #fff;
+    padding: 0px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+header .logo img {
+    max-height: 70px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+    margin-top: 4px;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    margin-right: 20px;
+}
+
+header nav ul li a {
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+header nav ul li a:hover {
+    background-color: #555;
+}
+
+/* Hero Section Styles */
+.hero {
+    background: url("../img/Yet\ \(2\).png") no-repeat center center/cover;
+    background-position: 0px 0px;
+    background-size: 100% 150%;
+    color: #fff;
+    padding: 120px 0px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.4em;
+    margin-bottom: 20px;
+    transform: translate(0%, 235%);
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    transform: translate(0%, 220%);
+}
+
+.search-bar input,
+.search-bar select,
+.search-bar button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.search-bar button {
+    background-color: #ff5722;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-bar button:hover {
+    background-color: #e64a19;
+}
+
+
+/* Grid view for the featured venues */
+.venue-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Set 3 columns */
+    grid-gap: var(--venue-gap, 20px);
+    justify-content: space-between; /* Space evenly between boxes */
+    flex-wrap: nowrap; /* No wrapping, keep items in one row */
+    gap: 20px; 
+}
+
+/* Adjust the image size in the featured venue section */
+.venue img {
+    width: 100%;
+    height: auto;
+}
+
+/* Use Poppins font for all elements within the .venue-content class */
+.venue-content * {
+    font-family: "Poppins", sans-serif;
+}
+
+/* Styling for the boxes in the featured venue section */
+.venue {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* General Styles */
+body {
+    font-family: poppins, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+    color: #333;
+
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/* How It Works Section Styling */
+.how-it-works {
+    padding: 50px 0;
+    background-color: #f9f9f9;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-header h2 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.section-header p {
+    font-size: 1.1em;
+    color: #777;
+}
+
+.works-content .row {
+    display: flex;
+    justify-content: space-between; /* Space evenly between boxes */
+    flex-wrap: nowrap; /* No wrapping, keep items in one row */
+    gap: 20px; /* Space between the boxes */
+}
+
+.single-how-works {
+    flex: 1; /* Grow and shrink to fit within the container */
+    max-width: 32%; /* Ensure each box does not exceed 32% of the container width to fit three boxes with gaps */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    aspect-ratio: 1 / 1; /* Maintain a square shape */
+}
+
+.single-how-works:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+}
+
+.single-how-works-icon {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #ff6600; /* Example color */
+}
+
+.single-how-works h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.single-how-works p {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.single-how-works a {
+    text-decoration: none;
+    color: #333;
+}
+
+.single-how-works a:hover {
+    text-decoration: underline;
+}
+
+.welcome-hero-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #ff6600; /* Example color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.welcome-hero-btn:hover {
+    background-color: #2d0435; /* Darker shade */
+}
+
+/* Responsive design adjustments */
+@media (max-width: 1200px) {
+    .single-how-works {
+        max-width: 48%; /* Adjust to fit two boxes per row on medium screens */
+    }
+}
+
+@media (max-width: 767px) {
+    .single-how-works {
+        max-width: 100%; /* Full width for small screens */
+        margin-bottom: 20px; /* Add bottom margin for stacked items */
+    }
+}

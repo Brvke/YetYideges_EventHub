@@ -12,19 +12,20 @@
     <link rel="stylesheet" href="../static/styles/individualvenue.css">
     <link rel="stylesheet" href="../static/styles/howitwork.css">
     <link rel="stylesheet" href="../static/styles/testimony.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <!-- Header Section -->
     <header>
         <div class="logo">
-            <img src="../static/img/YetYedeges.png" alt="Event Hub Logo"> <!-- Logo image --> 
+            <img src="{{ url_for('static', filename='img/YetYedeges.png') }}" alt="Event Hub Logo">
         </div>
         <nav>
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/venues">Venues</a></li>
-                <li><a href="/about">About Us</a></li>
-                <li><a href="/contact">Contact</a></li>
+                <li><a href="{{ url_for('main.index') }}">Home</a></li>
+                <li><a href="{{ url_for('main.venues') }}">Venues</a></li>
+                <li><a href="{{ url_for('main.about') }}">About Us</a></li>
+                <li><a href="{{ url_for('main.contact') }}">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -182,14 +183,14 @@
     <!-- Footer Section -->
     <footer>
         <div class="footer-links">
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="terms.html">Terms of Service</a>
-            <a href="faq.html">FAQ</a>
+            <a href="{{ url_for('main.privacy') }}">Privacy Policy</a>
+            <a href="{{ url_for('main.terms') }}">Terms of Service</a>
+            <a href="{{ url_for('main.faq') }}">FAQ</a>
         </div>
         <div class="social-media">
-            <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
-            <a href="#"><img src="twitter-icon.png" alt="Twitter"></a>
-            <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
+            <a href="#"><img src="{{ url_for('static', filename='img/facebook-icon.png') }}" alt="Facebook"></a>
+            <a href="#"><img src="{{ url_for('static', filename='img/twitter-icon.png') }}" alt="Twitter"></a>
+            <a href="#"><img src="{{ url_for('static', filename='img/instagram-icon.png') }}" alt="Instagram"></a>
             <!-- Add more social media links as needed -->
         </div>
         <p>Contact Us: (123) 456-7890 | info@eventhub.com</p>
