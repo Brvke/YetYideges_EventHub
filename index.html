@@ -1,1 +1,201 @@
-<h> Yet Yideges event hub rental</h>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Hub Rental</title>
+    <link rel="stylesheet" href="../static/styles/header.css"> <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="../static/styles/hero.css">
+    <link rel="stylesheet" href="../static/styles/body.css">
+    <link rel="stylesheet" href="../static/styles/featurevenue.css">
+    <link rel="stylesheet" href="../static/styles/footer.css">
+    <link rel="stylesheet" href="../static/styles/individualvenue.css">
+    <link rel="stylesheet" href="../static/styles/howitwork.css">
+    <link rel="stylesheet" href="../static/styles/testimony.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <img src="../static/img/YetYedeges.png" alt="Event Hub Logo"> <!-- Logo image --> 
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/venues">Venues</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Find Your Perfect Event Venue</h1>
+        <form class="search-bar">
+            <input type="text" placeholder="Location">
+            <input type="date">
+            <select>
+                <option value="all">All Event Types</option>
+                <option value="wedding">Wedding</option>
+                <option value="conference">Conference</option>
+                <option value="concert">Concert</option>
+                <option value="birthday">birthday</option>
+                <!-- Add more event types as needed -->
+            </select>
+            <button type="submit">Search</button>
+        </form>
+    </section>
+
+    <section class="featured-venues">
+        <div class="section-header">
+            <h2>Featured Venues </h2>
+            <p>Explore our top-rated event spaces</p>
+        </div>
+        <div class="venue-content">
+            {% for venue in venues %}
+                <div class="venue">
+                    <a href="{{ url_for('app_views.get_venue', venue_id=venue.id)}}">
+                        <img src="{{ venue.img }}" alt="Venue Image">
+                        <h3>{{ venue.name }}</h3>
+                        <p>{{ venue.description }}</p>
+                        <p>{{ venue.price_by_night }}</p>
+                    </a>
+                </div>
+                {% endfor %}
+        </div>
+    </section>
+    <!-- How it Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>Learn More about how our website works</p>
+            </div><!-- /.section-header -->
+            <div class="works-content">
+                <div class="row">
+                    <!-- Step 1: Choose what to do -->
+                    <div class="single-how-works">
+                        <div class="single-how-works-icon">
+                            <i class="flaticon-lightbulb-idea"></i>
+                        </div>
+                        <h2><a href="#">Choose <span> what to</span> do</a></h2>
+                        <p>
+                            Whether you're organizing a corporate conference, a wedding, or a private party, our platform allows you to select the type of event you're planning. This helps us tailor our recommendations and suggestions to your specific needs.
+                        </p>
+                        <button class="welcome-hero-btn how-work-btn" onclick="window.location.href='#'">Read More</button>
+                    </div><!-- /.single-how-works -->
+                    <!-- Step 2: Find what you want -->
+                    <div class="single-how-works">
+                        <div class="single-how-works-icon">
+                            <i class="flaticon-networking"></i>
+                        </div>
+                        <h2><a href="#">Find <span> what you want</span></a></h2>
+                        <p>
+                            Once you've chosen the event type, our powerful search and filtering tools help you discover the perfect venue for your occasion. You can browse through our curated selection of event spaces, compare prices, and read reviews to find the ideal location.
+                        </p>
+                        <button class="welcome-hero-btn how-work-btn" onclick="window.location.href='#'">Read More</button>
+                    </div><!-- /.single-how-works -->
+                    <!-- Step 3: Explore amazing places -->
+                    <div class="single-how-works">
+                        <div class="single-how-works-icon">
+                            <i class="flaticon-location-on-road"></i>
+                        </div>
+                        <h2><a href="#">Explore <span> amazing</span> places</a></h2>
+                        <p>
+                            Our event hub features a diverse range of venues, from historic banquet halls to modern conference centers. Each venue listing includes detailed information, high-quality photos, and the ability to check availability and request quotes directly through the platform.
+                        </p>
+                        <button class="welcome-hero-btn how-work-btn" onclick="window.location.href='#'">Read More</button>
+                    </div><!-- /.single-how-works -->
+                </div><!-- /.col -->
+            </div><!-- /.works-content -->
+        </div><!-- /.container -->
+    </section>
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2>What Our Clients Say</h2>
+        <div class="testimonial">
+            <p>"Great experience! The venue was perfect for our event."</p>
+            <p>- Happy Customer</p>
+        </div>
+        <div class="testimonial">
+            <p>"I highly recommend Event Hub. They helped me find the ideal venue for my wedding."</p>
+            <p>- Satisfied Bride</p>
+        </div>
+        <div class="testimonial">
+            <p>"Event Hub made it easy for me to book a conference venue. The process was seamless."</p>
+            <p>- Conference Organizer</p>
+        </div>
+        <!-- Add more testimonials as needed -->
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="blog">
+        <div class="container">
+            <div class="section-header">
+                <h2>News and Updates</h2>
+                <p>Stay informed about our latest event hub rental updates</p>
+            </div>
+            <div class="blog-content">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="single-blog-item">
+                            <div class="single-blog-item-img">
+                                <img src="../static/img/kuriftu.png" alt="New Feature Launch">
+                            </div>
+                            <div class="single-blog-item-txt">
+                                <h2><a href="#">New Feature Launch</a></h2>
+                                <h4>Posted by <span>Jane Doe</span> 2023-06-15</h4>
+                                <p>We're excited to announce the launch of our latest feature, which makes it easier than ever to manage your event hub rentals. Read more about the new updates and how they can benefit your business.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="single-blog-item">
+                            <div class="single-blog-item-img">
+                                <img src="../static/img/sheger.png" alt="Event Hub Expansion">
+                            </div>
+                            <div class="single-blog-item-txt">
+                                <h2><a href="#">Event Hub Expansion</a></h2>
+                                <h4>Posted by <span>John Smith</span> 2023-07-01</h4>
+                                <p>We're thrilled to announce that we've expanded our event hub network, adding new locations to serve our customers better. Learn more about the new event hubs and how they can benefit your upcoming events.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="single-blog-item">
+                            <div class="single-blog-item-img">
+                                <img src="../static/img/entoto.png" alt="Customer Success Story">
+                            </div>
+                            <div class="single-blog-item-txt">
+                                <h2><a href="#">Customer Success Story</a></h2>
+                                <h4>Posted by <span>Sarah Johnson</span> 2023-08-01</h4>
+                                <p>Read about how one of our customers used our event hub rental service to organize a successful conference. Learn from their experience and see how our platform can help you achieve your event goals.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/.container-->
+    </section><!--/.blog-->
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-links">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Service</a>
+            <a href="faq.html">FAQ</a>
+        </div>
+        <div class="social-media">
+            <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
+            <a href="#"><img src="twitter-icon.png" alt="Twitter"></a>
+            <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
+            <!-- Add more social media links as needed -->
+        </div>
+        <p>Contact Us: (123) 456-7890 | info@eventhub.com</p>
+    </footer>
+
+    <!-- Link to external JavaScript file -->
+    <script src="scripts.js"></script>
+</body>
+</html>

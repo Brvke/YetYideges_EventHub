@@ -42,7 +42,7 @@ def start():
               ]  # Convert all Venues to list of dictionaries
     with open('/mnt/c/Users/test/Documents/alx_se_brvke/YetYideges_EventHub/api/venue.json', 'r') as file:
         venues = json.load(file)
-    return render_template('yet1.html', venues=venues)
+    return render_template('index.html', venues=venues)
 
 @app.route('/about')
 def about():
