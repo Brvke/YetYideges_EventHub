@@ -1,34 +1,31 @@
-/* Footer Styles */
+/* Styles for the footer */
 footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px 0;
     text-align: center;
-}
-
-.footer-links {
-    margin-bottom: 20px;
+    padding: 20px 0;
+    background-color: #333;
+    color: white;
 }
 
 .footer-links a {
-    color: #fff;
     margin: 0 10px;
-    transition: color 0.3s;
+    color: white;
+    font-size: 14px;
 }
 
 .footer-links a:hover {
-    color: #ff5722;
-}
-
-.social-media a {
-    margin: 0 10px;
+    color: #5cb85c;
 }
 
 .social-media img {
-    max-height: 30px;
-    transition: opacity 0.3s;
+    width: 24px;
+    margin: 0 10px;
 }
 
 .social-media img:hover {
     opacity: 0.7;
+}
+
+footer p {
+    margin-top: 10px;
+    font-size: 14px;
 }

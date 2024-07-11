@@ -1,0 +1,71 @@
+/* Styles for the venues list and detail pages */
+.venue-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.venue-content .venue {
+    width: calc(33.333% - 20px);
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.venue-content .venue img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.venue-content .venue h3 {
+    font-size: 20px;
+    color: #5cb85c;
+}
+
+.venue-detail {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.venue-detail .venue-header {
+    flex: 1;
+}
+
+.venue-detail .venue-header img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.venue-detail .venue-header h1 {
+    font-size: 32px;
+    color: #5cb85c;
+    margin-bottom: 10px;
+}
+
+.venue-detail .venue-amenities {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.venue-detail .venue-amenities h2 {
+    font-size: 24px;
+    color: #5cb85c;
+    margin-bottom: 10px;
+}
+
+.venue-detail .venue-amenities ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.venue-detail .venue-amenities li {
+    font-size: 16px;
+    margin-bottom: 5px;
+}

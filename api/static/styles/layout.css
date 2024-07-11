@@ -1,0 +1,31 @@
+/* General layout styles */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header, .footer {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+}
+
+.main-content {
+    padding: 20px 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    font-size: 24px;
+    color: #5cb85c;
+}
+
+.section-header p {
+    font-size: 16px;
+    color: #666;
+}

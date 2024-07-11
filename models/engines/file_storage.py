@@ -9,7 +9,7 @@ from models.base_model import BaseModel
 
 class FileStorage:
     """Serializes instances to a JSON file & deserializes back to instances."""
-    __file_path = "file.json"  # Path to the JSON file to store data
+    __file_path = "data.json"  # Path to the JSON file to store data
     __objects = {}  # A dictionary to store all objects by class name and ID
 
     def all(self):
@@ -36,7 +36,12 @@ class FileStorage:
                     class_name = obj_data['__class__']
                     cls = self._get_class_from_name(class_name)
                     if cls:
-                        self.__objects[key] = cls(**obj_data)
+                        obj = cls(**obj_data)
+                        self.__objects[key] = obj
+                        
+                        if class_name == 'Venue' and 'location_ids' in obj_data:
+                            obj.location_ids = obj_data['location_ids']
+
 
     def delete(self, obj=None):
         """Deletes obj from __objects if its inside."""
@@ -56,13 +61,15 @@ class FileStorage:
             from models.venue import Venue
             from models.amenity import Amenity
             from models.review import Review
-            from models.reservation import Reservation
+            from models.location import Location
+            from models.engines.file_storage import FileStorage
             classes = {
                 "User": User,
                 "Venue": Venue,
                 "Amenity": Amenity,
                 "Review": Review,
-                "Reservation": Reservation
+                "Location": Location,
+                "FileStorage": FileStorage
             }
             return classes[class_name]
         except ImportError:

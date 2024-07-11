@@ -2,7 +2,7 @@
 """ Blueprint for API """
 from flask import Blueprint
 
-app_views = Blueprint('app_views', __name__, url_prefix='/api')
+app_views = Blueprint('app_views', __name__, url_prefix='/api/views')
 
 #from api.views.index import *
 from api.views.venues import *

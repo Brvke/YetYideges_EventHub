@@ -18,12 +18,12 @@ class Venue(BaseModel):
     longitude = 0.0
     event_capacity = 0
     rental_policies = ""
+    location_ids = []
 
     def __init__(self, *args, **kwargs):
         """Initializes EventHubPlace."""
         super().__init__(*args, **kwargs)
-        self.amenities = []  # Initialize amenities as a list
-        self.locations = []  # Initialize locations as a list
+        self.location_ids = kwargs.get('location_ids', [])
 
     @property
     def reviews(self):
@@ -31,20 +31,20 @@ class Venue(BaseModel):
         return [review for review in models.storage.all(Review).values() if review.venue_id == self.id]
 
     @property
-    def amenities(self):
-        """Getter attribute returns the list of Amenity instances related to the venue."""
-        return [amenity for amenity in models.storage.all(Amenity).values() if amenity.id in self.amenity_ids]
-
-    @property
     def locations(self):
         """Getter attribute returns the list of Location instances related to the venue."""
         return [location for location in models.storage.all(Location).values() if location.id in self.location_ids]
 
+    def add_location(self, location):
+        """Add a location to the venue."""
+        if location.id not in self.location_ids:
+            self.location_ids.append(location.id)
+            location.venue_id = self.id
+            location.save()
+            self.save()
+
     def to_dict(self):
         """Converts the Venue object to a dictionary."""
         result = super().to_dict()
-        result['amenities'] = [amenity.to_dict() for amenity in self.amenities]
-        result['locations'] = [location.to_dict() for location in self.locations]
-        result.pop('amenity_ids', None)
-        result.pop('location_ids', None)
+        result['location_ids'] = self.location_ids
         return result

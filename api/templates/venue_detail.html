@@ -1,0 +1,23 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}{{ venue.name }} - Event Hub{% endblock %}
+
+{% block content %}
+<section class="venue-detail">
+    <div class="venue-header">
+        <img src="{{ url_for('static', filename=venue.img) }}" alt="Venue Image">
+        <h1>{{ venue.name }}</h1>
+        <p>{{ venue.description }}</p>
+        <p>Price: {{ venue.price_by_night }}</p>
+        <p>Location: {{ venue.location }}</p>
+    </div>
+    <div class="venue-amenities">
+        <h2>Amenities</h2>
+        <ul>
+            {% for amenity in venue.amenities %}
+                <li>{{ amenity }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endblock %}

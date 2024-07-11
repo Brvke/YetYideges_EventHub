@@ -1,0 +1,24 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Venues - Event Hub{% endblock %}
+
+{% block content %}
+<section class="featured-venues">
+    <div class="section-header">
+        <h2>Featured Venues</h2>
+        <p>Explore our top-rated event spaces</p>
+    </div>
+    <div class="venue-content">
+        {% for venue in venues %}
+            <div class="venue">
+                <a href="{{ url_for('app_views.get_venue', venue_id=venue.id) }}">
+                    <img src="{{ url_for('static', filename=venue.img) }}" alt="Venue Image">
+                    <h3>{{ venue.name }}</h3>
+                    <p>{{ venue.description }}</p>
+                    <p>{{ venue.price_by_night }}</p>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

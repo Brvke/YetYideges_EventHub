@@ -1,0 +1,29 @@
+/* Styles for error pages */
+.error {
+    text-align: center;
+    padding: 100px 0;
+}
+
+.error h2 {
+    font-size: 48px;
+    color: #d9534f;
+    margin-bottom: 20px;
+}
+
+.error p {
+    font-size: 24px;
+    color: #666;
+}
+
+.error a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #5cb85c;
+    color: white;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.error a:hover {
+    background-color: #4cae4c;
+}

@@ -24,10 +24,6 @@ class Location(BaseModel):
         result['venue_id'] = self.venue_id
         return result
 
-    def save(self):
-        """Saves the current state of the Location object"""
-        super().save()
-
     @staticmethod
     def get_by_id(location_id):
         """Static method to get a Location by its ID"""
@@ -44,3 +40,22 @@ class Location(BaseModel):
         file_name = "locations.json"
         locations = BaseModel.load_data(file_name)
         return [Location(**location_data) for location_data in locations if location_data['venue_id'] == venue_id]
+
+    @classmethod
+    def load(cls, file_name):
+        """Loads locations from a JSON file"""
+        locations = []
+        if os.path.exists(file_name):
+            with open(file_name, 'r') as f:
+                locations_data = json.load(f)
+                for location_data in locations_data:
+                    locations.append(cls(**location_data))
+        return locations
+
+    def save_to_file(self, file_name):
+        """Saves the location to a JSON file"""
+        locations = self.load(file_name)
+        locations.append(self)
+        locations_data = [location.to_dict() for location in locations]
+        with open(file_name, 'w') as f:
+            json.dump(locations_data, f, indent=4)

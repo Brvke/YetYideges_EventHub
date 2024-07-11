@@ -1,0 +1,24 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Home - Event Hub{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Find Your Perfect Event Venue</h1>
+    <form class="search-bar" action="{{ url_for('app_views.venues_search') }}" method="POST">
+        <input type="text" name="location" placeholder="Location">
+        <input type="date" name="date">
+        <select name="event_type">
+            <option value="all">All Event Types</option>
+            <option value="wedding">Wedding</option>
+            <option value="conference">Conference</option>
+            <option value="concert">Concert</option>
+            <option value="birthday">Birthday</option>
+            <!-- Add more event types as needed -->
+        </select>
+        <button type="submit">Search</button>
+    </form>
+</section>
+
+{% include 'venues/venues_list.html' %}
+{% endblock %}

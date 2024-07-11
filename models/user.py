@@ -4,22 +4,20 @@ from hashlib import md5
 from models.base_model import BaseModel
 import models
 import re
-
+from datetime import datetime
+import uuid
 class User(BaseModel):
     """Representation of a User."""
     
-    def __init__(self, *args, **kwargs):
-        """Initializes User."""
-        self.email = ""
-        self._password = ""  # Private attribute for storing hashed password
-        self.first_name = ""
-        self.last_name = ""
-        self.phone_number = ""
-        self.venues = []  # Assuming this will hold a list of place IDs
-        self.reviews = []  # Assuming this will hold a list of review IDs
-        super().__init__(*args, **kwargs)
-        self.venues = kwargs.get('venues', [])
-        self.reviews = kwargs.get('reviews', [])
+    def __init__(self, **kwargs):
+        self.id = kwargs.get('id', str(uuid.uuid4()))
+        self.email = kwargs.get('email')
+        self._password = None
+        self.__setattr__(kwargs.get('password', ''))
+        self.created_at = kwargs.get('created_at', datetime.utcnow().isoformat())
+        self.updated_at = kwargs.get('updated_at', datetime.utcnow().isoformat())
+        self.__class__ = 'User'
+        
 
     @property
     def password(self):
@@ -40,6 +38,7 @@ class User(BaseModel):
     def to_dict(self):
         """Converts the User object to a dictionary, excluding sensitive info."""
         result = super().to_dict()
+
         result.pop('_password', None)  # Remove the internal password attribute
         return result
 
@@ -49,16 +48,8 @@ class User(BaseModel):
         pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
         return re.match(pattern, email) is not None
 
-    @staticmethod
-    def validate_phone(phone_number):
-        """Validates the phone number format (e.g., E.164)."""
-        pattern = r'^\+?[1-9]\d{1,14}$'
-        return re.match(pattern, phone_number) is not None
-
     def save(self):
         """Override save method to include additional validation."""
         if not self.validate_email(self.email):
             raise ValueError("Invalid email format")
-        if self.phone_number and not self.validate_phone(self.phone_number):
-            raise ValueError("Invalid phone number format")
         super().save()
