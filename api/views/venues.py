@@ -31,7 +31,7 @@ def get_venue(venue_id):
         abort(404)  # If Venue not found, return 404
 
     # Return JSON response
-    return render_template('venue.html', venues=venue)
+    return render_template('venue_detail.html', venues=venue)
 
 @app_views.route('/venues/<venue_id>', methods=['DELETE'], strict_slashes=False)
 @swag_from('documentation/venue/delete_venue.yml', methods=['DELETE'])
@@ -108,8 +108,10 @@ def venues_search():
 
     locations = data.get('locations', [])
     amenities = data.get('amenities', [])
+    date = data.get('date', None)  # Extract date from request
+    event_type = data.get('event_type', None)  # Extract event_type from request
 
-    if not data or not (locations or amenities):
+    if not data or not (locations or amenities or date or event_type):
         # Return all venues if no specific filter criteria are provided
         return jsonify([venue.to_dict() for venue in venues])
 
@@ -127,12 +129,23 @@ def venues_search():
         amenities_objs = [storage.get(Amenity, amenity_id) for amenity_id in amenities]
         list_venues = [venue for venue in list_venues if all(amenity in venue.amenities for amenity in amenities_objs)]
 
+    # Filter by date and event_type if provided
+    if date or event_type:
+        filtered_venues = []
+        for venue in list_venues:
+            # Assuming Venue model has attributes `event_dates` and `event_types` for simplicity
+            if date and date not in venue.event_dates:
+                continue
+            if event_type and event_type not in venue.event_types:
+                continue
+            filtered_venues.append(venue)
+        list_venues = filtered_venues
+
     result = [venue.to_dict() for venue in list_venues]
     for venue in result:
         venue.pop('amenities', None)  # Remove amenities for simplicity
 
     return jsonify(result)
-
 @app_views.route('/featured-venues', methods=['GET'])
 def get_featured_venues():
     """

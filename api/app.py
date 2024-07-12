@@ -31,9 +31,9 @@ app.config['SWAGGER'] = {
 }
 
 @app.route('/', methods=['GET'])
-def start():
+def index():
     # Convert all Venues to list of dictionaries
-    with open('../storage/venue.json', 'r') as file:
+    with open('./storage/venue.json', 'r') as file:
         venues = json.load(file)
     return render_template('index.html', venues=venues)
 
@@ -41,11 +41,20 @@ def start():
 def about():
     return render_template('about.html')
 
+@app.route('/home')
+def home() :
+    return render_template('home.html')
+
 @app.route('/venues')
 def venues():
-    with open('../storage/venue.json', 'r') as file:
+    with open('./storage/venue.json', 'r') as file:
         venues = json.load(file)
     return render_template('venues.html', venues=venues)
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
 
     
 Swagger(app)

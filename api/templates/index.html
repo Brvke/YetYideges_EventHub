@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Hub Rental</title>
-    <link rel="stylesheet" href="../static/styles/header.css"> <!-- Link to external CSS file -->
-    <link rel="stylesheet" href="../static/styles/hero.css">
-    <link rel="stylesheet" href="../static/styles/body.css">
+    <link rel="stylesheet" href="../static/styles/myheader.css"> <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="../static/styles/myhero.css">
+    <link rel="stylesheet" href="../static/styles/mybody.css">
     <link rel="stylesheet" href="../static/styles/featurevenue.css">
     <link rel="stylesheet" href="../static/styles/footer.css">
     <link rel="stylesheet" href="../static/styles/individualvenue.css">
@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../static/styles/testimony.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+
 <body>
     <!-- Header Section -->
     <header>
@@ -22,10 +23,9 @@
         </div>
         <nav>
             <ul>
-                <li><a href="{{ url_for('yet1') }}">Home</a></li>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
                 <li><a href="{{ url_for('venues') }}">Venues</a></li>
                 <li><a href="{{ url_for('about') }}">About Us</a></li>
-                <li><a href="{{ url_for('blog') }}">Blog</a></li>
             </ul>
         </nav>
     </header>
@@ -112,22 +112,29 @@
             </div><!-- /.works-content -->
         </div><!-- /.container -->
     </section>
+    
     <!-- Testimonials Section -->
     <section class="testimonials">
-        <h2>What Our Clients Say</h2>
-        <div class="testimonial">
-            <p>"Great experience! The venue was perfect for our event."</p>
-            <p>- Happy Customer</p>
+        <div class="container">
+            <div class="section-header">
+                <h2>What Our Clients Say</h2>
+            </div>
+            <div class="testimonial-container">
+                <div class="testimonial">
+                    <p>"Great experience! The venue was perfect for our event."</p>
+                    <p>- Happy Customer</p>
+                </div>
+                <div class="testimonial">
+                    <p>"I highly recommend Event Hub. They helped me find the ideal venue for my wedding."</p>
+                    <p>- Satisfied Bride</p>
+                </div>
+                <div class="testimonial">
+                    <p>"Event Hub made it easy for me to book a conference venue. The process was seamless."</p>
+                    <p>- Conference Organizer</p>
+                </div>
+                <!-- Add more testimonials as needed -->
+            </div>
         </div>
-        <div class="testimonial">
-            <p>"I highly recommend Event Hub. They helped me find the ideal venue for my wedding."</p>
-            <p>- Satisfied Bride</p>
-        </div>
-        <div class="testimonial">
-            <p>"Event Hub made it easy for me to book a conference venue. The process was seamless."</p>
-            <p>- Conference Organizer</p>
-        </div>
-        <!-- Add more testimonials as needed -->
     </section>
 
     <!-- Blog Section -->
@@ -139,40 +146,34 @@
             </div>
             <div class="blog-content">
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="single-blog-item">
-                            <div class="single-blog-item-img">
-                                <img src="../static/img/kuriftu.png" alt="New Feature Launch">
-                            </div>
-                            <div class="single-blog-item-txt">
-                                <h2><a href="#">New Feature Launch</a></h2>
-                                <h4>Posted by <span>Jane Doe</span> 2023-06-15</h4>
-                                <p>We're excited to announce the launch of our latest feature, which makes it easier than ever to manage your event hub rentals. Read more about the new updates and how they can benefit your business.</p>
-                            </div>
+                    <div class="single-blog-item">
+                        <div class="single-blog-item-img">
+                            <img src="../static/img/kuriftu.png" alt="New Feature Launch">
+                        </div>
+                        <div class="single-blog-item-txt">
+                            <h2><a href="#">New Feature Launch</a></h2>
+                            <h4>Posted by <span>Jane Doe</span> 2023-06-15</h4>
+                            <p>We're excited to announce the launch of our latest feature, which makes it easier than ever to manage your event hub rentals. Read more about the new updates and how they can benefit your business.</p>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="single-blog-item">
-                            <div class="single-blog-item-img">
-                                <img src="../static/img/sheger.png" alt="Event Hub Expansion">
-                            </div>
-                            <div class="single-blog-item-txt">
-                                <h2><a href="#">Event Hub Expansion</a></h2>
-                                <h4>Posted by <span>John Smith</span> 2023-07-01</h4>
-                                <p>We're thrilled to announce that we've expanded our event hub network, adding new locations to serve our customers better. Learn more about the new event hubs and how they can benefit your upcoming events.</p>
-                            </div>
+                    <div class="single-blog-item">
+                        <div class="single-blog-item-img">
+                            <img src="../static/img/sheger.png" alt="Event Hub Expansion">
+                        </div>
+                        <div class="single-blog-item-txt">
+                            <h2><a href="#">Event Hub Expansion</a></h2>
+                            <h4>Posted by <span>John Smith</span> 2023-07-01</h4>
+                            <p>We're thrilled to announce that we've expanded our event hub network, adding new locations to serve our customers better. Learn more about the new event hubs and how they can benefit your upcoming events.</p>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="single-blog-item">
-                            <div class="single-blog-item-img">
-                                <img src="../static/img/entoto.png" alt="Customer Success Story">
-                            </div>
-                            <div class="single-blog-item-txt">
-                                <h2><a href="#">Customer Success Story</a></h2>
-                                <h4>Posted by <span>Sarah Johnson</span> 2023-08-01</h4>
-                                <p>Read about how one of our customers used our event hub rental service to organize a successful conference. Learn from their experience and see how our platform can help you achieve your event goals.</p>
-                            </div>
+                    <div class="single-blog-item">
+                        <div class="single-blog-item-img">
+                            <img src="../static/img/entoto.png" alt="Customer Success Story">
+                        </div>
+                        <div class="single-blog-item-txt">
+                            <h2><a href="#">Customer Success Story</a></h2>
+                            <h4>Posted by <span>Sarah Johnson</span> 2023-08-01</h4>
+                            <p>Read about how one of our customers used our event hub rental service to organize a successful conference. Learn from their experience and see how our platform can help you achieve your event goals.</p>
                         </div>
                     </div>
                 </div>
@@ -183,14 +184,12 @@
     <!-- Footer Section -->
     <footer>
         <div class="footer-links">
-            <a href="{{ url_for('main.privacy') }}">Privacy Policy</a>
-            <a href="{{ url_for('main.terms') }}">Terms of Service</a>
-            <a href="{{ url_for('main.faq') }}">FAQ</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Service</a>
         </div>
         <div class="social-media">
-            <a href="#"><img src="{{ url_for('static', filename='img/facebook-icon.png') }}" alt="Facebook"></a>
-            <a href="#"><img src="{{ url_for('static', filename='img/twitter-icon.png') }}" alt="Twitter"></a>
-            <a href="#"><img src="{{ url_for('static', filename='img/instagram-icon.png') }}" alt="Instagram"></a>
+            <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
+            <a href="#"><img src="twitter-icon.png" alt="Twitter"></a>
             <!-- Add more social media links as needed -->
         </div>
         <p>Contact Us: (123) 456-7890 | info@eventhub.com</p>

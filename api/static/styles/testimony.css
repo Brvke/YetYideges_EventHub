@@ -1,5 +1,14 @@
 /* Testimonials Section */
 .testimonials {
+    padding: 40px 0;
+    text-align: center;
+}
+
+.section-header {
+    margin-bottom: 30px;
+}
+
+.testimonial-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -12,6 +21,7 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex: 1 0 300px;
 }
 
 .testimonial p {
