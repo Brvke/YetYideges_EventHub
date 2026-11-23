@@ -1,0 +1,24 @@
+# secrets / local config
+.env
+*.env.local
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+myenv/
+
+# django
+backend/media/
+backend/staticfiles/
+
+# node
+node_modules/
+frontend/dist/
+
+# os/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
