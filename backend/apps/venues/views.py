@@ -8,8 +8,12 @@ from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from django.http import HttpResponseRedirect
+from rest_framework.exceptions import NotFound
+
 from apps.accounts.permissions import IsVenueOwner
 
+from . import google
 from .filters import VenueFilter
 from .models import Amenity, BlockedDate, EventType, Venue, VenuePhoto
 from .serializers import (
@@ -81,6 +85,45 @@ class VenueViewSet(viewsets.ReadOnlyModelViewSet):
                 "unavailable": sorted(set(booked) | set(blocked)),
             }
         )
+
+
+    # --- Google photos: fetched live, never stored (see apps/venues/google.py) --
+    def _google_place(self):
+        venue = self.get_object()
+        if not venue.google_place_id:
+            raise NotFound("This venue has no Google photos.")
+        return venue
+
+    @extend_schema(responses={200: dict})
+    @action(detail=True, url_path="google-photos")
+    def google_photos(self, request, slug=None):
+        """Photo URLs (short-lived) with the attributions Google requires us to show."""
+        venue = self._google_place()
+        try:
+            photos = google.place_photos(venue.google_place_id)
+            data = [
+                {"url": google.photo_url(p["name"]), "width": p["width"], "height": p["height"],
+                 "attributions": p["attributions"]}
+                for p in photos
+            ]
+        except google.GooglePlacesError as exc:
+            return Response({"detail": str(exc), "photos": []}, status=status.HTTP_502_BAD_GATEWAY)
+        return Response({"photos": data, "maps_url": venue.google_maps_url})
+
+    @action(detail=True, url_path=r"google-photo/(?P<index>\d+)")
+    def google_photo(self, request, slug=None, index="0"):
+        """Redirect to one Google photo, so <img src> works for list cards."""
+        venue = self._google_place()
+        try:
+            photos = google.place_photos(venue.google_place_id)
+            if int(index) >= len(photos):
+                raise NotFound("No such photo.")
+            url = google.photo_url(photos[int(index)]["name"], max_px=800)
+        except google.GooglePlacesError:
+            raise NotFound("Photo unavailable.")
+        response = HttpResponseRedirect(url)
+        response["Cache-Control"] = "private, max-age=300"
+        return response
 
 
 class EventTypeList(generics.ListAPIView):

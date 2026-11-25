@@ -14,9 +14,14 @@ export function VenueCard({ venue, highlighted, onHover }: { venue: VenueSummary
       className={clsx('card group overflow-hidden transition hover:-translate-y-0.5 hover:shadow-md', highlighted && 'ring-2 ring-brand-500')}
     >
       <div className="relative aspect-[4/3] overflow-hidden">
-        <Cover src={venue.cover_photo} alt={venue.name} className="size-full transition duration-500 group-hover:scale-105" />
+        <Cover
+          src={venue.cover_photo}
+          alt={venue.name}
+          className="size-full transition duration-500 group-hover:scale-105"
+          credit={venue.cover_is_illustrative ? 'Illustrative photo' : venue.source === 'google' ? 'Photo: Google Maps' : undefined}
+        />
         <span className="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-xs font-semibold shadow-sm">
-          {moneyCompact(venue.price_per_day)} <span className="font-normal text-ink-500">/ day</span>
+          {venue.details_estimated && <span className="font-normal text-ink-500">~</span>}{moneyCompact(venue.price_per_day)} <span className="font-normal text-ink-500">/ day</span>
         </span>
       </div>
       <div className="space-y-1.5 p-4">

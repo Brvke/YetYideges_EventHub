@@ -18,12 +18,13 @@ class AmenitySerializer(serializers.ModelSerializer):
 class VenuePhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = VenuePhoto
-        fields = ["id", "image", "caption", "order", "width", "height"]
-        read_only_fields = ["id", "width", "height"]
+        fields = ["id", "image", "caption", "order", "width", "height", "credit", "credit_url", "is_illustrative"]
+        read_only_fields = ["id", "width", "height", "credit", "credit_url", "is_illustrative"]
 
 
 class VenueListSerializer(serializers.ModelSerializer):
     cover_photo = serializers.SerializerMethodField()
+    cover_is_illustrative = serializers.SerializerMethodField()
     event_types = EventTypeSerializer(many=True, read_only=True)
 
     class Meta:
@@ -32,16 +33,24 @@ class VenueListSerializer(serializers.ModelSerializer):
             "id", "slug", "name", "tagline", "city", "area",
             "capacity_min", "capacity_max", "price_per_day",
             "rating_avg", "rating_count", "latitude", "longitude",
-            "cover_photo", "event_types",
+            "cover_photo", "cover_is_illustrative", "event_types", "source", "details_estimated",
         ]
+
+    def get_cover_is_illustrative(self, venue):
+        photos = list(venue.photos.all())
+        return bool(photos and photos[0].is_illustrative)
 
     def get_cover_photo(self, venue):
         # photos are prefetched, so use the cache instead of a new query
         photos = list(venue.photos.all())
-        if not photos:
+        if photos:
+            url = photos[0].image.url
+        elif venue.google_place_id:
+            # Our proxy redirects to a fresh Google photo URL; nothing is stored.
+            url = f"/api/venues/{venue.slug}/google-photo/0/"
+        else:
             return None
         request = self.context.get("request")
-        url = photos[0].image.url
         return request.build_absolute_uri(url) if request else url
 
 
@@ -53,6 +62,7 @@ class VenueDetailSerializer(VenueListSerializer):
     class Meta(VenueListSerializer.Meta):
         fields = VenueListSerializer.Meta.fields + [
             "description", "address", "rental_policies", "amenities", "photos", "owner_name",
+            "google_maps_url",
         ]
 
 
@@ -74,8 +84,17 @@ class VenueWriteSerializer(serializers.ModelSerializer):
             "latitude", "longitude", "capacity_min", "capacity_max", "price_per_day",
             "event_types", "amenities", "rental_policies", "is_published",
             "rating_avg", "rating_count", "photos", "created_at",
+            "source", "details_estimated",
         ]
-        read_only_fields = ["id", "slug", "rating_avg", "rating_count", "created_at"]
+        read_only_fields = [
+            "id", "slug", "rating_avg", "rating_count", "created_at", "source", "details_estimated",
+        ]
+
+    def update(self, instance, validated_data):
+        # Once the owner sets real price/capacity, stop labelling them as estimates.
+        if {"price_per_day", "capacity_min", "capacity_max"} & validated_data.keys():
+            validated_data["details_estimated"] = False
+        return super().update(instance, validated_data)
 
     def validate(self, attrs):
         lo = attrs.get("capacity_min", getattr(self.instance, "capacity_min", 1))

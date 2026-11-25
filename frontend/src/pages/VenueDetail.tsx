@@ -5,7 +5,7 @@ import { Check, ChevronLeft, MapPin, MessageSquareReply, Users } from 'lucide-re
 import { api, ApiError } from '../lib/api'
 import { useAuth } from '../lib/auth'
 import { isoDate, addDays, money, prettyDate } from '../lib/format'
-import type { Booking, Paginated, Review, VenueDetail as Venue } from '../lib/types'
+import type { Booking, GooglePhoto, Paginated, Review, VenueDetail as Venue } from '../lib/types'
 import { AvailabilityCalendar } from '../components/AvailabilityCalendar'
 import { VenueMap } from '../components/VenueMap'
 import { Alert, Cover, Empty, FieldError, Spinner, Stars } from '../components/ui'
@@ -38,6 +38,7 @@ export function VenueDetail() {
       </div>
 
       <Gallery venue={venue} />
+      <div className="mt-4"><ImportedNotice venue={venue} /></div>
 
       <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_380px]">
         <div className="space-y-10">
@@ -93,22 +94,82 @@ export function VenueDetail() {
   )
 }
 
+interface Slide {
+  key: string
+  src: string
+  alt: string
+  credit?: { name: string; url: string }[]
+  /** free-licensed stock photo credit, e.g. "Author · CC BY-SA 4.0 · Wikimedia Commons" */
+  stock?: { text: string; url: string; illustrative: boolean }
+}
+
 function Gallery({ venue }: { venue: Venue }) {
   const [active, setActive] = useState(0)
-  const photos = venue.photos
-  if (!photos.length) return <Cover src={null} alt={venue.name} className="mt-6 aspect-[21/9] w-full rounded-3xl" />
+  // Owner photos win; imported venues fall back to live Google photos (never stored).
+  const useGoogle = venue.photos.length === 0 && venue.source === 'google'
+  const { data: google, isLoading } = useQuery({
+    queryKey: ['google-photos', venue.slug],
+    queryFn: () => api<{ photos: GooglePhoto[] }>(`/venues/${venue.slug}/google-photos/`),
+    enabled: useGoogle,
+    staleTime: 4 * 60_000, // Google photo URLs are short-lived
+  })
+
+  const slides: Slide[] = useGoogle
+    ? (google?.photos ?? []).map((p, i) => ({ key: `g${i}`, src: p.url, alt: venue.name, credit: p.attributions }))
+    : venue.photos.map((p) => ({
+        key: String(p.id),
+        src: p.image,
+        alt: p.caption || venue.name,
+        stock: p.credit ? { text: p.credit, url: p.credit_url, illustrative: p.is_illustrative } : undefined,
+      }))
+
+  if (useGoogle && isLoading) return <div className="mt-6 aspect-[21/9] w-full animate-pulse rounded-3xl bg-ink-100" />
+  if (!slides.length) return <Cover src={null} alt={venue.name} className="mt-6 aspect-[21/9] w-full rounded-3xl" />
+  const current = slides[Math.min(active, slides.length - 1)]
+
   return (
     <div className="mt-6">
-      <img src={photos[active].image} alt={photos[active].caption || venue.name} className="aspect-[21/9] w-full rounded-3xl object-cover" />
-      {photos.length > 1 && (
+      <div className="relative">
+        <img src={current.src} alt={current.alt} referrerPolicy="no-referrer" className="aspect-[21/9] w-full rounded-3xl object-cover" />
+        {current.credit && (
+          <p className="absolute bottom-3 right-3 rounded-lg bg-black/60 px-2 py-1 text-xs text-white">
+            Photo{current.credit.length ? ' by ' : ''}
+            {current.credit.map((a, i) => (
+              <span key={a.url || a.name}>{i > 0 && ', '}<a href={a.url} target="_blank" rel="noreferrer" className="underline">{a.name}</a></span>
+            ))}
+            {' · '}Google Maps
+          </p>
+        )}
+        {current.stock && (
+          <p className="absolute bottom-3 right-3 max-w-[80%] truncate rounded-lg bg-black/60 px-2 py-1 text-xs text-white">
+            {current.stock.illustrative && <strong>Illustrative photo, not this venue · </strong>}
+            <a href={current.stock.url} target="_blank" rel="noreferrer" className="underline">{current.stock.text}</a>
+          </p>
+        )}
+      </div>
+      {slides.length > 1 && (
         <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
-          {photos.map((p, i) => (
-            <button key={p.id} onClick={() => setActive(i)} className={`shrink-0 overflow-hidden rounded-xl ring-2 ${i === active ? 'ring-brand-600' : 'ring-transparent'}`} aria-label={`Photo ${i + 1}`}>
-              <img src={p.image} alt="" className="h-16 w-24 object-cover" loading="lazy" />
+          {slides.map((s, i) => (
+            <button key={s.key} onClick={() => setActive(i)} className={`shrink-0 overflow-hidden rounded-xl ring-2 ${s === current ? 'ring-brand-600' : 'ring-transparent'}`} aria-label={`Photo ${i + 1}`}>
+              <img src={s.src} alt="" referrerPolicy="no-referrer" className="h-16 w-24 object-cover" loading="lazy" />
             </button>
           ))}
         </div>
       )}
+    </div>
+  )
+}
+
+function ImportedNotice({ venue }: { venue: Venue }) {
+  if (venue.source === 'owner' && !venue.details_estimated) return null
+  const provider = venue.source === 'google' ? 'Google Maps' : venue.source === 'gebeta' ? 'Gebeta Maps' : null
+  return (
+    <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+      <strong>Demo listing.</strong>{' '}
+      {provider && `Name, address and location come from ${provider}. `}
+      {venue.source === 'osm' && <>Name and location from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer" className="underline">© OpenStreetMap contributors</a>. </>}
+      {venue.details_estimated && 'Price and capacity are estimates, not confirmed by the venue. '}
+      {venue.google_maps_url && <a href={venue.google_maps_url} target="_blank" rel="noreferrer" className="font-semibold underline">View on Google Maps</a>}
     </div>
   )
 }
@@ -158,7 +219,11 @@ function BookingCard({ venue }: { venue: Venue }) {
 
   return (
     <form onSubmit={submit} className="card space-y-4 p-6">
-      <p><span className="text-2xl font-bold">{money(venue.price_per_day)}</span> <span className="text-ink-500">/ event day</span></p>
+      <p>
+        {venue.details_estimated && <span className="mr-1 text-sm text-ink-500">about</span>}
+        <span className="text-2xl font-bold">{money(venue.price_per_day)}</span> <span className="text-ink-500">/ event day</span>
+      </p>
+      {venue.details_estimated && <p className="-mt-2 text-xs text-ink-500">Estimated: confirm the price with the venue.</p>}
 
       <div>
         <p className="label">Pick your date</p>

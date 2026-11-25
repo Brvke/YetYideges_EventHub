@@ -133,3 +133,14 @@ SPECTACULAR_SETTINGS = {
 }
 
 CORS_ALLOWED_ORIGINS = env("CORS_ALLOWED_ORIGINS")
+
+# Google Places API (New) key, used by `import_google_places` and the photo proxy.
+GOOGLE_MAPS_API_KEY = env("GOOGLE_MAPS_API_KEY", default="")
+# Gebeta Maps key (free Developer plan), used by `import_gebeta_places`.
+GEBETA_API_KEY = env("GEBETA_API_KEY", default="")
+
+# Tests: a fast password hasher (the default is deliberately slow).
+import sys  # noqa: E402
+
+if "test" in sys.argv:
+    PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]

@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { ImageIcon, Loader2, Star } from 'lucide-react'
 import clsx from 'clsx'
@@ -39,8 +39,19 @@ export function StarInput({ value, onChange }: { value: number; onChange(v: numb
 }
 
 /** Photo with a warm gradient placeholder when a venue has no photos yet. */
-export function Cover({ src, alt, className }: { src: string | null | undefined; alt: string; className?: string }) {
-  if (src) return <img src={src} alt={alt} loading="lazy" className={clsx('object-cover', className)} />
+export function Cover({ src, alt, className, credit }: { src: string | null | undefined; alt: string; className?: string; credit?: string }) {
+  // Fall back to the placeholder if the image fails (e.g. a Google photo is unavailable).
+  const [failed, setFailed] = useState(false)
+  if (src && !failed) {
+    const img = <img src={src} alt={alt} loading="lazy" referrerPolicy="no-referrer" onError={() => setFailed(true)} className={clsx('object-cover', className)} />
+    if (!credit) return img
+    return (
+      <>
+        {img}
+        <span className="absolute bottom-2 right-2 rounded bg-black/55 px-1.5 py-0.5 text-[10px] text-white">{credit}</span>
+      </>
+    )
+  }
   const hue = [...alt].reduce((a, c) => a + c.charCodeAt(0), 0) % 40
   return (
     <div

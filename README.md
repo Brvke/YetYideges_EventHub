@@ -51,6 +51,28 @@ Vite proxies `/api` and `/media` to Django, so no CORS setup is needed in develo
 **Demo accounts** (created by `seed_demo`, password = `DEMO_PASSWORD` from your `.env`):
 `owner@demo.yetyideges.test` (venue owner) and `guest@demo.yetyideges.test` (guest).
 
+### Demo data from Gebeta Maps (Addis Ababa, free)
+
+`python manage.py import_gebeta_places` imports Addis Ababa halls, hotels, resorts, gardens and conference centres from [Gebeta Maps](https://gebeta.app), an Ethiopian map provider. The free Developer plan includes 1,500 search calls, and sign-up needs no payment card.
+
+1. Register at https://gebeta.app (choose **Individual**), then create an API key in the dashboard.
+2. Put it in `.env` as `GEBETA_API_KEY=...`.
+3. Run `python manage.py import_gebeta_places --dry-run` to preview, then without `--dry-run` to save.
+
+One run makes about 90 calls: 10 searches across a 3×3 grid of Addis. Use `--grid 2` for about 40. Gebeta returns names, locations and neighbourhoods but no photos, so these venues show a placeholder image, and their price and capacity are labelled as estimates. A venue that's already listed with the same name within 300 m, for example from Google, is skipped.
+
+### Demo data from Google Places (Addis Ababa)
+
+`python manage.py import_google_places` imports real event venues in Addis Ababa (wedding halls, banquet halls, hotel ballrooms, conference halls, gardens) from the **Google Places API (New)**, for demo and testing.
+
+1. In Google Cloud Console, create a project, enable **Places API (New)**, create an API key, and restrict it to that API.
+2. Put it in `.env` as `GOOGLE_MAPS_API_KEY=...`.
+3. Run `python manage.py import_google_places --dry-run` to preview, then without `--dry-run` to save. Use `--refresh` later to re-sync.
+
+How it follows Google's terms: only the place ID is kept long-term. Name, address and location are re-synced with `--refresh`. Photos are **never stored**: the API fetches a short-lived photo URL from Google on each view and the UI shows the photographer credit and "Google Maps". Price and capacity aren't in Google's data, so imported venues get placeholder values labelled as estimates. These clear as soon as an owner edits them.
+
+Each search page is a billable request (about 14 to 21 per full import), and every photo view calls the API too. Google has a free monthly allowance; check current pricing before running it often.
+
 Admin: `python manage.py createsuperuser`, then go to http://localhost:8000/admin/.
 
 ## Tests

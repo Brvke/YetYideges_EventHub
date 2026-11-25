@@ -55,6 +55,24 @@ class Venue(models.Model):
     rental_policies = models.TextField(blank=True)
     is_published = models.BooleanField(default=True)
 
+    # --- Imported listings (see apps/venues/google.py) ---------------------
+    class Source(models.TextChoices):
+        OWNER = "owner", "Added by owner"
+        GOOGLE = "google", "Imported from Google Places"
+        GEBETA = "gebeta", "Imported from Gebeta Maps"
+        OSM = "osm", "Imported from OpenStreetMap"
+
+    source = models.CharField(max_length=10, choices=Source.choices, default=Source.OWNER)
+    gebeta_id = models.CharField(max_length=120, unique=True, null=True, blank=True)
+    osm_id = models.CharField(max_length=40, unique=True, null=True, blank=True, help_text="e.g. node/123")
+    # Google allows storing place IDs indefinitely; photos are never stored and
+    # other fields are refreshed by `import_google_places --refresh`.
+    google_place_id = models.CharField(max_length=300, unique=True, null=True, blank=True)
+    google_synced_at = models.DateTimeField(null=True, blank=True)
+    google_maps_url = models.URLField(max_length=500, blank=True)
+    # True when price/capacity are placeholders rather than owner-provided.
+    details_estimated = models.BooleanField(default=False)
+
     # Kept in sync by apps.reviews.signals so list pages don't aggregate per row.
     rating_avg = models.DecimalField(max_digits=3, decimal_places=2, default=0)
     rating_count = models.PositiveIntegerField(default=0)
@@ -106,6 +124,12 @@ class VenuePhoto(models.Model):
     image = models.ImageField(upload_to=venue_photo_path)
     caption = models.CharField(max_length=160, blank=True)
     order = models.PositiveSmallIntegerField(default=0)
+    # For freely licensed stock photos (e.g. Wikimedia Commons): who to credit.
+    credit = models.CharField(max_length=300, blank=True, help_text="Author · licence")
+    credit_url = models.URLField(max_length=500, blank=True)
+    is_illustrative = models.BooleanField(
+        default=False, help_text="Generic photo, not of this actual venue"
+    )
     width = models.PositiveIntegerField(default=0, editable=False)
     height = models.PositiveIntegerField(default=0, editable=False)
 

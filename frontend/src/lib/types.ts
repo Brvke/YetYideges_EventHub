@@ -34,7 +34,11 @@ export interface VenueSummary {
   latitude: string | null
   longitude: string | null
   cover_photo: string | null
+  cover_is_illustrative: boolean
   event_types: Named[]
+  source: 'owner' | 'google' | 'gebeta' | 'osm'
+  /** price/capacity are placeholders, not owner-provided */
+  details_estimated: boolean
 }
 
 export interface Photo {
@@ -44,6 +48,9 @@ export interface Photo {
   order: number
   width: number
   height: number
+  credit: string
+  credit_url: string
+  is_illustrative: boolean
 }
 
 export interface VenueDetail extends VenueSummary {
@@ -53,6 +60,14 @@ export interface VenueDetail extends VenueSummary {
   amenities: Named[]
   photos: Photo[]
   owner_name: string
+  google_maps_url: string
+}
+
+export interface GooglePhoto {
+  url: string
+  width: number
+  height: number
+  attributions: { name: string; url: string }[]
 }
 
 /** Shape the owner edits; relations are slug lists. */
